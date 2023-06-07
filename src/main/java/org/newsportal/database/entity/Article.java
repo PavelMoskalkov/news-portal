@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @EqualsAndHashCode(of = "id")
-@ToString
+@ToString(exclude = "user")
 @Entity
 @Table(name = "articles")
 public class Article {
@@ -16,7 +16,7 @@ public class Article {
     private Long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "context")
+    @Column(name = "content")
     private String content;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
