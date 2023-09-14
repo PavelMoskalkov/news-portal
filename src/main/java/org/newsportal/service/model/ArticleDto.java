@@ -9,8 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ArticleDto {
 
-    private Long id;
-
     private String title;
 
     private String content;

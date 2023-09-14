@@ -24,12 +24,10 @@ public class ArticleMapperImpl implements ArticleMapper {
 
         if (source.getUser() != null) {
             userDto = new UserDto();
-            userDto.setId(source.getUser().getId());
             userDto.setUsername(source.getUser().getUsername());
         }
 
         final ArticleDto articleDto = new ArticleDto();
-        articleDto.setId(source.getId());
         articleDto.setTitle(source.getTitle());
         articleDto.setContent(source.getContent());
         articleDto.setUserDto(userDto);
@@ -47,12 +45,10 @@ public class ArticleMapperImpl implements ArticleMapper {
 
         if (source.getUserDto() != null) {
             user = new User();
-            user.setId(source.getUserDto().getId());
             user.setUsername(source.getUserDto().getUsername());
         }
 
         final Article article = new Article();
-        article.setId(source.getId());
         article.setTitle(source.getTitle());
         article.setContent(source.getContent());
         article.setUser(user);
@@ -64,15 +60,6 @@ public class ArticleMapperImpl implements ArticleMapper {
     public List<ArticleDto> toDto(List<Article> source) {
         return source.stream().map(this::toDto).filter(Objects::nonNull).toList();
     }
-
-//    @Override
-//    public List<ArticleDto> toDto(List<Article> source) {
-//        List<ArticleDto> articles = new ArrayList<>();
-//        for (Article entity : source) {
-//            articles.add(toDto(entity));
-//        }
-//        return articles;
-//    }
 
     @Override
     public List<Article> toEntity(List<ArticleDto> source) {

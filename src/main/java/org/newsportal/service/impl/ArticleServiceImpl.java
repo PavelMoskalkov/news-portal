@@ -1,7 +1,6 @@
 package org.newsportal.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.newsportal.database.entity.Article;
 import org.newsportal.database.repository.ArticleRepository;
 import org.newsportal.service.ArticleService;
 import org.newsportal.service.mapper.ArticleMapper;
@@ -34,9 +33,9 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article changeById(Long id, ArticleDto articleDto) {
-        return articleRepository.updateById(id, articleMapper.toEntity(articleDto))
-                .orElseThrow(()-> new RuntimeException("Article not found"));
+    public ArticleDto changeById(Long id, ArticleDto articleDto) {
+        return articleMapper.toDto(articleRepository.updateById(id, articleMapper.toEntity(articleDto))
+                .orElseThrow(()-> new RuntimeException("Article not found")));
     }
 
     @Override

@@ -42,14 +42,15 @@ public class ArticleRepositoryImpl implements ArticleRepository {
     @Override
     public Optional<Article> updateById(Long id, Article article) {
         try(Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
             Article articleUpdate = session.get(Article.class, id);
             if (articleUpdate != null) {
-
                 articleUpdate.setTitle(article.getTitle());
                 articleUpdate.setContent(article.getContent());
                 articleUpdate.setUser(article.getUser());
             }
             session.update(articleUpdate);
+            session.getTransaction().commit();
 
             return Optional.ofNullable(articleUpdate);
         }
@@ -58,7 +59,10 @@ public class ArticleRepositoryImpl implements ArticleRepository {
     @Override
     public void deleteById(Long id) {
         try(Session session = sessionFactory.openSession()) {
-            session.remove(session.get(Article.class, id));
+            session.beginTransaction();
+            Article article = session.get(Article.class, id);
+            session.remove(article);
+            session.getTransaction().commit();
         }
     }
 
@@ -66,6 +70,6 @@ public class ArticleRepositoryImpl implements ArticleRepository {
         Configuration configuration = new Configuration();
         configuration.configure();
         ArticleRepository articleRepository = new ArticleRepositoryImpl(configuration.buildSessionFactory());
-        System.out.println(articleRepository.findAll().get());
+        articleRepository.deleteById(5L);
     }
 }

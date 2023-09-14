@@ -10,7 +10,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    private Long id;
     private String username;
     private List<ArticleDto> articles;
 

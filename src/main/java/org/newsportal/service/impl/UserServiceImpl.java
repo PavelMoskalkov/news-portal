@@ -1,7 +1,6 @@
 package org.newsportal.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.newsportal.database.entity.User;
 import org.newsportal.database.repository.UserRepository;
 import org.newsportal.service.UserService;
 import org.newsportal.service.mapper.UserMapper;
@@ -34,9 +33,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User changeById(Long id, UserDto userDto) {
-        return userRepository.updateById(id, userMapper.toEntity(userDto))
-                .orElseThrow(()-> new RuntimeException("User not found"));
+    public UserDto changeById(Long id, UserDto userDto) {
+        return userMapper.toDto(userRepository.updateById(id, userMapper.toEntity(userDto))
+                .orElseThrow(()-> new RuntimeException("User not found")));
     }
 
     @Override
